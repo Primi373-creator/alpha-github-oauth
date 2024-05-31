@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import Plugins from "./pages/Plugins";
 import Deploy from "./pages/Deploy";
+import Authqr from "./pages/qr";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/plugins" element={<Plugins />} />
         <Route path="/deploy" element={<Deploy />} />
+        <Route path="/qr" element={<Authqr />} />
       </Routes>
     </Router>
   );
