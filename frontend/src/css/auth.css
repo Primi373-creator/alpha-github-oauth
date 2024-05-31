@@ -1,0 +1,58 @@
+button {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+  display: inline-block;
+}
+
+button:hover {
+  transform: scale(0.95);
+  color: #fff;
+}
+
+.button-blue {
+  border-color: #2196f3;
+  color: #2196f3;
+}
+
+.button-blue:hover {
+  background-color: #2196f3; /* Fill button with border color on hover */
+}
+
+.button-green {
+  border-color: #8bc34a;
+  color: #8bc34a;
+}
+
+.button-green:hover {
+  background-color: #8bc34a; /* Fill button with border color on hover */
+}
+
+.flex {
+  display: flex;
+  gap: 20px; /* Ensure consistent spacing between buttons */
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-white {
+  background-color: white;
+}

@@ -1,0 +1,67 @@
+button {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+  display: inline-block;
+}
+
+button:hover {
+  transform: scale(0.95);
+  color: #fff;
+}
+
+.button-blue {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.button-blue:hover {
+  background-color: #007bff; /* Fill button with border color on hover */
+}
+
+.button-green {
+  border-color: #34c759;
+  color: #34c759;
+}
+
+.button-green:hover {
+  background-color: #34c759; /* Fill button with border color on hover */
+}
+
+.button-purple {
+  border-color: #6c5ce7;
+  color: #6c5ce7;
+}
+
+.button-purple:hover {
+  background-color: #6c5ce7; /* Fill button with border color on hover */
+}
+
+.flex {
+  display: flex;
+  gap: 20px; /* Ensure consistent spacing between buttons */
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-white {
+  background-color: white;
+}

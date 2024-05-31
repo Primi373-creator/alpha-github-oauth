@@ -1,0 +1,45 @@
+/* General button styles */
+button {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  font-family: Varela Round;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+  display: inline-block;
+}
+
+button:hover {
+  transform: scale(0.95);
+  color: #fff;
+}
+
+/* Button color variations */
+.button-red {
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.button-red:hover {
+  background-color: #ff0000; /* Fill button with border color on hover */
+}
+
+.button-orange {
+  border-color: #ffa07a;
+  color: #ffa07a;
+}
+
+.button-orange:hover {
+  background-color: #ffa07a; /* Fill button with border color on hover */
+}
+
+.button-indigo {
+  border-color: #4b0082;
+  color: #4b0082;
+}
+
+.button-indigo:hover {
+  background-color: #4b0082; /* Fill button with border color on hover */
+}
