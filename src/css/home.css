@@ -20,7 +20,7 @@ button:hover {
 }
 
 .button-blue:hover {
-  background-color: #007bff; /* Fill button with border color on hover */
+  background-color: #007bff;
 }
 
 .button-green {
@@ -29,7 +29,7 @@ button:hover {
 }
 
 .button-green:hover {
-  background-color: #34c759; /* Fill button with border color on hover */
+  background-color: #34c759;
 }
 
 .button-purple {
@@ -38,12 +38,12 @@ button:hover {
 }
 
 .button-purple:hover {
-  background-color: #6c5ce7; /* Fill button with border color on hover */
+  background-color: #6c5ce7;
 }
 
 .flex {
   display: flex;
-  gap: 20px; /* Ensure consistent spacing between buttons */
+  gap: 20px;
 }
 
 .flex-col {

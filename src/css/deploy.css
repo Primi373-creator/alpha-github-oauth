@@ -1,11 +1,10 @@
-/* General button styles */
 button {
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 120px;
   height: 40px;
   font-size: 16px;
-  font-family: Varela Round;
+  font-family: "Varela Round", sans-serif;
   transition: all 0.3s ease-in-out;
   margin: 10px;
   display: inline-block;
@@ -16,30 +15,29 @@ button:hover {
   color: #fff;
 }
 
-/* Button color variations */
-.button-red {
-  border-color: #ff0000;
-  color: #ff0000;
+.button-heroku {
+  border-color: #007bff;
+  color: #007bff;
 }
 
-.button-red:hover {
-  background-color: #ff0000; /* Fill button with border color on hover */
+.button-heroku:hover {
+  background-color: #007bff;
 }
 
-.button-orange {
-  border-color: #ffa07a;
-  color: #ffa07a;
+.button-koyeb {
+  border-color: #34c759;
+  color: #34c759;
 }
 
-.button-orange:hover {
-  background-color: #ffa07a; /* Fill button with border color on hover */
+.button-koyeb:hover {
+  background-color: #34c759;
 }
 
-.button-indigo {
-  border-color: #4b0082;
-  color: #4b0082;
+.button-vps {
+  border-color: #6c5ce7;
+  color: #6c5ce7;
 }
 
-.button-indigo:hover {
-  background-color: #4b0082; /* Fill button with border color on hover */
+.button-vps:hover {
+  background-color: #6c5ce7;
 }
