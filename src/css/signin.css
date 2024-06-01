@@ -59,9 +59,8 @@
   text-align: center;
 }
 
-.github-button,
-.small-button {
-  padding: 10px 20px;
+.github-button {
+  padding: 10px 10px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
@@ -74,8 +73,7 @@
     background-color 0.3s;
 }
 
-.github-button:hover,
-.small-button:hover {
+.github-button:hover {
   color: #000;
   background-color: #fff;
 }
@@ -91,4 +89,23 @@
 
 .github-link {
   text-decoration: none;
+}
+
+.small-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #000;
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}
+
+.small-button:hover {
+  color: #000;
+  background-color: #fff;
 }
