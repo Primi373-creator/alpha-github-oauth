@@ -8,35 +8,48 @@ const Authqr = () => {
   const [sessionId, setSessionId] = useState(null);
 
   useEffect(() => {
+    setConnecting(true);
+
     const socket = io("https://qtmr8n-5678.csb.app", {
-      path: "/auth/qr",
-      transports: ["websocket"],
+      path: "/",
+      transports: ["websocket", "polling"],
     });
 
     socket.on("connect", () => {
       console.log("Connected to server");
-      setConnecting(true);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("Connection error:", err);
+      setConnecting(false);
     });
 
     socket.on("qr", (data) => {
       console.log("QR code received");
-      setQrCode(data);
+      setQrCode(data.qr);
+      setConnecting(false);
     });
 
     socket.on("session", (data) => {
       console.log("Session ID received:", data.sessionId);
       setSessionId(data.sessionId);
-      setConnecting(false);
     });
 
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
-      setConnecting(false);
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Connection error:", err);
-    });
+    // Fetch QR code from the server
+    fetch("https://qtmr8n-5678.csb.app/auth/qr")
+      .then((response) => response.json())
+      .then((data) => {
+        setQrCode(data.qr);
+        setConnecting(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching QR code:", error);
+        setConnecting(false);
+      });
 
     return () => {
       socket.disconnect();

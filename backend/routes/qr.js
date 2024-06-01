@@ -2,19 +2,19 @@ const QRCode = require("qrcode");
 const express = require("express");
 const fs = require("fs");
 const { makeid } = require("../lib/makeid");
-const pino = require("pino");
 const {
   makeWASocket,
   useMultiFileAuthState,
   Browsers,
   delay,
-  DisconnectReason,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore,
 } = require("@whiskeysockets/baileys");
 const Paste = require("../models/session");
 
 const router = express.Router();
+
+const io = require("socket.io")();
 
 router.get("/qr", async (req, res) => {
   const id = makeid();
@@ -43,12 +43,13 @@ router.get("/qr", async (req, res) => {
 
       if (qr) {
         const qrBuffer = await QRCode.toBuffer(qr);
-        req.io.emit("qr", qrBuffer.toString("base64"));
-        console.log("QR code sent");
+        const qrBase64 = qrBuffer.toString("base64");
+        if (!res.headersSent) {
+          res.json({ qr: qrBase64 });
+        }
       }
 
       if (connection === "open") {
-        console.log("Connection opened");
         await delay(1000 * 20);
         const unique = fs.readFileSync(__dirname + `/session/${id}/creds.json`);
         const content = Buffer.from(unique).toString("base64");
@@ -61,9 +62,11 @@ router.get("/qr", async (req, res) => {
         await paste.save();
         await client.ws.close();
         await delay(1000 * 2);
-        return req.io.emit("session", { sessionId: id }).then(() => {
-          console.log("Session ID sent:", id);
-        });
+        if (io && req.io) {
+          console.log("Connection opened");
+          io.emit("session", { sessionId: id });
+          console.log("Session ID emitted:", id);
+        }
       }
 
       if (
@@ -81,7 +84,7 @@ router.get("/qr", async (req, res) => {
     client.ev.on("messages.upsert", () => {});
   }
 
-  return await Getqr();
+  await Getqr();
 });
 
-module.exports = router;
+module.exports = { router, io };
