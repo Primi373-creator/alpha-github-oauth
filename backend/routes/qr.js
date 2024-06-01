@@ -1,10 +1,8 @@
 const QRCode = require("qrcode");
 const express = require("express");
-const SSE = require("express-sse");
 const fs = require("fs");
 const { makeid } = require("../lib/makeid");
 const pino = require("pino");
-const compression = require("compression");
 const {
   makeWASocket,
   useMultiFileAuthState,
@@ -16,16 +14,10 @@ const {
 } = require("@whiskeysockets/baileys");
 const Paste = require("../models/session");
 
-let router = express.Router();
-const sse = new SSE();
-
-// Use compression middleware
-router.use(compression());
+const router = express.Router();
 
 router.get("/qr", async (req, res) => {
   const id = makeid();
-  sse.init(req, res, { flush: false }); // Initialize SSE once at the beginning
-  console.log("SSE connection initialized");
 
   async function Getqr() {
     const { state, saveCreds } = await useMultiFileAuthState(
@@ -51,14 +43,11 @@ router.get("/qr", async (req, res) => {
 
       if (qr) {
         const qrBuffer = await QRCode.toBuffer(qr);
-        sse.send(
-          { type: "qr", data: qrBuffer.toString("base64") },
-          { flush: false },
-        );
+        req.io.emit("qr", qrBuffer.toString("base64"));
         console.log("QR code sent");
       }
 
-      if (connection == "open") {
+      if (connection === "open") {
         console.log("Connection opened");
         await delay(1000 * 20);
         const unique = fs.readFileSync(__dirname + `/session/${id}/creds.json`);
@@ -70,13 +59,11 @@ router.get("/qr", async (req, res) => {
           content: content,
         });
         await paste.save();
-        sse.send(
-          { type: "session", data: { sessionId: id } },
-          { flush: false },
-        );
-        console.log("Session ID sent:", id);
+        await client.ws.close();
         await delay(1000 * 2);
-        process.exit(0);
+        return req.io.emit("session", { sessionId: id }).then(() => {
+          console.log("Session ID sent:", id);
+        });
       }
 
       if (

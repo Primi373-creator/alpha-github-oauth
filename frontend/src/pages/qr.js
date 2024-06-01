@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
 import "../css/qr.css";
 
 const Authqr = () => {
@@ -6,37 +7,40 @@ const Authqr = () => {
   const [connecting, setConnecting] = useState(false);
   const [sessionId, setSessionId] = useState(null);
 
-  const handleEventSource = useCallback(() => {
-    const eventSource = new EventSource("https://wsnthc-5678.csb.app/auth/qr");
+  useEffect(() => {
+    const socket = io("https://qtmr8n-5678.csb.app", {
+      path: "/auth/qr",
+      transports: ["websocket"],
+    });
 
-    eventSource.onmessage = (event) => {
-      console.log("Event received:", event.data);
-      const parsedData = JSON.parse(event.data);
-      if (parsedData.type === "qr") {
-        setQrCode(parsedData.data);
-      } else if (parsedData.type === "session") {
-        setSessionId(parsedData.data.sessionId);
-        setConnecting(false);
-      }
-    };
-
-    eventSource.onopen = () => {
-      console.log("SSE connection opened");
+    socket.on("connect", () => {
+      console.log("Connected to server");
       setConnecting(true);
-    };
+    });
 
-    eventSource.onerror = () => {
-      console.error("SSE connection error");
+    socket.on("qr", (data) => {
+      console.log("QR code received");
+      setQrCode(data);
+    });
+
+    socket.on("session", (data) => {
+      console.log("Session ID received:", data.sessionId);
+      setSessionId(data.sessionId);
       setConnecting(false);
-    };
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+      setConnecting(false);
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("Connection error:", err);
+    });
 
     return () => {
-      eventSource.close();
+      socket.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    handleEventSource();
   }, []);
 
   const copyToClipboard = () => {
@@ -47,7 +51,7 @@ const Authqr = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
       {qrCode && (
         <img
-          src={`data:image/png;base64,${qrCode}`} // Ensure that qrCode data is correctly formatted
+          src={`data:image/png;base64,${qrCode}`}
           alt="QR Code"
           className="w-48 h-48 mb-4"
         />
