@@ -1,0 +1,146 @@
+body {
+  font-family: "Arial", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  background-color: #4a5568;
+  color: white;
+  align-items: center;
+}
+
+.header img {
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.header button {
+  background-color: #e53e3e;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.add-gist {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.add-gist input {
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 0.25rem;
+}
+
+.add-gist button {
+  background-color: #4299e1;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.gist-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .gist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gist-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gist-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.gist-card img {
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.gist-card .gist-info {
+  display: flex;
+  align-items: center;
+}
+
+.gist-card .gist-info div {
+  margin-left: 0.5rem;
+}
+
+.gist-card .buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.gist-card .buttons button {
+  flex: 1;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.gist-card .buttons .like {
+  background-color: #48bb78;
+  color: white;
+}
+
+.gist-card .buttons .dislike {
+  background-color: #f56565;
+  color: white;
+}
+
+/* Animation for the "No Plugins Found" page */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.no-plugins {
+  text-align: center;
+  margin-top: 2rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.no-plugins img {
+  width: 200px;
+  margin: 0 auto;
+}

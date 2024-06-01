@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import "../css/qr.css";
 
 const Authqr = () => {
+  /*
   const [qrCode, setQrCode] = useState(null);
   const [connecting, setConnecting] = useState(false);
   const [sessionId, setSessionId] = useState(null);
@@ -106,7 +107,7 @@ const Authqr = () => {
         </div>
       )}
     </div>
-  );
+  );*/
 };
 
 export default Authqr;
