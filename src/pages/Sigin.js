@@ -3,25 +3,28 @@ import { signInWithGithub } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faArrowLeft as faArrowLeftSolid } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
+import { useNavigate } from "react-router-dom";
 import "../css/signin.css";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 seconds
+    }, 2000);
   }, []);
 
   return (
-    <div className="login">
+    <div className={loading ? "loader" : "login"}>
       {loading ? (
-        <div className="loader">
-          <div className="ripple"></div>
-          <div className="ripple"></div>
+        <div className="spinner">
+          <div className="rect1"></div>
+          <div className="rect2"></div>
+          <div className="rect3"></div>
+          <div className="rect4"></div>
+          <div className="rect5"></div>
         </div>
       ) : (
         <div className="button-container">
@@ -31,7 +34,7 @@ const SignIn = () => {
           >
             <FontAwesomeIcon icon={faGithub} /> Sign in{" "}
           </button>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="button-group">
             <button
               className="small-button"
               onClick={() => (window.location.href = "/")}
@@ -39,12 +42,12 @@ const SignIn = () => {
               <FontAwesomeIcon icon={faArrowLeftSolid} /> Back
             </button>
             <a
-              href="https://github.com"
+              href="https://github.com/C-iph3r/alpha-md"
               target="_blank"
               rel="noopener noreferrer"
               className="github-link"
             >
-              <button className="small-button">
+              <button className="small-button repo-button">
                 <FontAwesomeIcon icon={faGithub} /> Repo
               </button>
             </a>
