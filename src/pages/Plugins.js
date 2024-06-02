@@ -3,10 +3,15 @@ import { auth, db, increment } from "../firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
+import "../css/plugins.css"; // Import the CSS file for styling
 
 const Plugins = () => {
   const [gists, setGists] = useState([]);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +33,7 @@ const Plugins = () => {
       ...doc.data(),
     }));
     setGists(gistsData);
+    setLoading(false);
   };
 
   const handleLike = async (gistId) => {
@@ -42,22 +48,42 @@ const Plugins = () => {
     fetchGists();
   };
 
+  if (loading) {
+    return (
+      <div className="loader">
+        <div className="spinner">
+          <div className="rect1"></div>
+          <div className="rect2"></div>
+          <div className="rect3"></div>
+          <div className="rect4"></div>
+          <div className="rect5"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <div className="main">
         <div className="header">
           <div className="profile">
-            <img
-              src={user?.photoURL}
-              alt={user?.displayName}
-              className="avatar"
-            />
-            <span>{user?.displayName}</span>
+            <img src={user?.photoURL} alt={user?.displayName} className="avatar" />
+            <span>Welcome, {user?.displayName} ({user?.reloadUserInfo?.screenName})</span>
           </div>
-          <button onClick={() => signOut(auth)}>Logout</button>
+          <div className="menu">
+            <button 
+              onClick={() => setShowOptions(!showOptions)} 
+              className={`menu-button ${showOptions ? 'rotate' : ''}`}
+            >
+              <FontAwesomeIcon icon={faCog} />
+            </button>
+            <div className={`dropdown ${showOptions ? 'fade-in' : 'fade-out'}`}>
+              <button onClick={() => signOut(auth)} className="action-button">Logout</button>
+              <button onClick={() => navigate("/plugins/add")} className="action-button">Add Gist</button>
+              <button onClick={() => navigate("/plugins/delete")} className="action-button">Delete Gist</button>
+            </div>
+          </div>
         </div>
-        <button onClick={() => navigate("/plugins/add")}>Add Gist</button>
-        <button onClick={() => navigate("/plugins/delete")}>Delete Gist</button>
         {gists.length === 0 ? (
           <div className="no-plugins">
             <h2>Oops, no plugins found!</h2>
@@ -67,26 +93,17 @@ const Plugins = () => {
             {gists.map((gist) => (
               <div key={gist.id} className="gist-card">
                 <div className="gist-info">
-                  <img
-                    src={gist.owner.avatar_url}
-                    alt={gist.owner.login}
-                    className="w-10 h-10 rounded-full mr-4"
-                  />
+                  <img src={gist.owner.avatar_url} alt={gist.owner.login} className="gist-avatar" />
                   <div>
-                    <div className="font-bold">{gist.owner.login}</div>
-                    <div className="text-sm text-gray-500">
-                      {gist.description}
-                    </div>
+                    <div className="gist-author">{gist.owner.login}</div>
+                    <div className="gist-description">{gist.description}</div>
                   </div>
                 </div>
                 <div className="buttons">
-                  <button onClick={() => handleLike(gist.id)} className="like">
+                  <button onClick={() => handleLike(gist.id)} className="like-button">
                     Like ({gist.like})
                   </button>
-                  <button
-                    onClick={() => handleDislike(gist.id)}
-                    className="dislike"
-                  >
+                  <button onClick={() => handleDislike(gist.id)} className="dislike-button">
                     Dislike ({gist.dislike})
                   </button>
                 </div>
