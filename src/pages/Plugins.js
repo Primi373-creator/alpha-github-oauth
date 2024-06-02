@@ -5,7 +5,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import "../css/plugins.css"; // Import the CSS file for styling
+import "../css/plugins.css";
+import Copyright from "./copyright";
 
 const Plugins = () => {
   const [gists, setGists] = useState([]);
@@ -111,6 +112,9 @@ const Plugins = () => {
             ))}
           </div>
         )}
+      </div>
+      <div className="w-full flex justify-center">
+        <Copyright />
       </div>
     </div>
   );
