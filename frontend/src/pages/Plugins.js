@@ -4,7 +4,7 @@ import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import "../css/plugins.css";
 import Copyright from "./copyright";
 
@@ -68,21 +68,19 @@ const Plugins = () => {
       <div className="main">
         <div className="header">
           <div className="profile">
-            <img src={user?.photoURL} alt={user?.displayName} className="avatar" />
-            <span>Welcome, {user?.displayName} ({user?.reloadUserInfo?.screenName})</span>
+            <img
+              src={user?.photoURL}
+              alt={user?.displayName}
+              className="avatar"
+            />
+            <span>
+              Welcome, {user?.displayName} ({user?.reloadUserInfo?.screenName})
+            </span>
           </div>
           <div className="menu">
-            <button 
-              onClick={() => setShowOptions(!showOptions)} 
-              className={`menu-button ${showOptions ? 'rotate' : ''}`}
-            >
-              <FontAwesomeIcon icon={faCog} />
+            <button onClick={() => signOut(auth)} className="action-button">
+              <FontAwesomeIcon icon={faSignOutAlt} /> Logout
             </button>
-            <div className={`dropdown ${showOptions ? 'fade-in' : 'fade-out'}`}>
-              <button onClick={() => signOut(auth)} className="action-button">Logout</button>
-              <button onClick={() => navigate("/plugins/add")} className="action-button">Add Gist</button>
-              <button onClick={() => navigate("/plugins/delete")} className="action-button">Delete Gist</button>
-            </div>
           </div>
         </div>
         {gists.length === 0 ? (
@@ -94,17 +92,27 @@ const Plugins = () => {
             {gists.map((gist) => (
               <div key={gist.id} className="gist-card">
                 <div className="gist-info">
-                  <img src={gist.owner.avatar_url} alt={gist.owner.login} className="gist-avatar" />
+                  <img
+                    src={gist.owner.avatar_url}
+                    alt={gist.owner.login}
+                    className="gist-avatar"
+                  />
                   <div>
                     <div className="gist-author">{gist.owner.login}</div>
                     <div className="gist-description">{gist.description}</div>
                   </div>
                 </div>
                 <div className="buttons">
-                  <button onClick={() => handleLike(gist.id)} className="like-button">
+                  <button
+                    onClick={() => handleLike(gist.id)}
+                    className="like-button"
+                  >
                     Like ({gist.like})
                   </button>
-                  <button onClick={() => handleDislike(gist.id)} className="dislike-button">
+                  <button
+                    onClick={() => handleDislike(gist.id)}
+                    className="dislike-button"
+                  >
                     Dislike ({gist.dislike})
                   </button>
                 </div>
