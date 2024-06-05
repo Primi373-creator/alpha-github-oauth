@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../css/qr.css";
-import whatsappLogo from "../public/whatsapp.png";
 
 const Authqr = () => {
   const [qrCode, setQrCode] = useState(null);
@@ -34,11 +33,6 @@ const Authqr = () => {
             src={`data:image/png;base64,${qrCode}`}
             alt="QR Code"
             className="w-96 h-96 mb-4"
-          />
-          <img
-            src={whatsappLogo}
-            alt="WhatsApp Logo"
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20"
           />
         </div>
       )}
