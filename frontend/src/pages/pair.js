@@ -44,8 +44,9 @@ const Paircd = () => {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(pairCode);
-    alert("Pairing code copied to clipboard!");
+    if (pairCode) {
+      navigator.clipboard.writeText(pairCode);
+    }
   };
 
   return (
@@ -83,14 +84,12 @@ const Paircd = () => {
             )}
             {pairCode && !connecting && (
               <div className="authqr-pairing-section">
-                <p className="authqr-pair-code">{pairCode}</p>
-                <button
-                  type="button"
+                <p
+                  className={`authqr-pair-code ${connecting ? "connecting" : ""}`}
                   onClick={copyToClipboard}
-                  className="authqr-copy-button"
                 >
-                  Copy Pairing Code
-                </button>
+                  {pairCode}
+                </p>
               </div>
             )}
           </form>
