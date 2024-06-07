@@ -5,10 +5,11 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const qrRouter = require("./routes/qr");
+const pairRouter = require("./routes/pair");
 
 const app = express();
-app.use(express.static(path.join(__dirname, "./frontend/build")));
 
+app.use(express.static(path.join(__dirname, "./frontend/build")));
 app.use(bodyParser.json());
 app.use(
   cors({
@@ -18,11 +19,11 @@ app.use(
   }),
 );
 
-const server = app.listen(process.env.PORT, () =>
-  console.log(`Server listening on port ${process.env.PORT}`),
-);
+const serverRouter = express.Router();
+serverRouter.use(qrRouter);
+serverRouter.use(pairRouter);
 
-app.use("/server", qrRouter);
+app.use("/server", serverRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./frontend/build", "index.html"));
@@ -36,5 +37,9 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err);
   });
+
+const server = app.listen(process.env.PORT, () => {
+  console.log(`Server listening on port ${process.env.PORT}`);
+});
 
 module.exports = app;

@@ -1,0 +1,144 @@
+/* authqr.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.authqr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.authqr-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.authqr-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.authqr-input {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.authqr-submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.authqr-submit-button:hover {
+  background-color: #0056b3;
+}
+
+.authqr-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.authqr-pair-code {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.authqr-copy-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.authqr-copy-button:hover {
+  background-color: #0056b3;
+}
+
+.authqr-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.authqr-spinner {
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.authqr-spinner > div {
+  background-color: #000;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  margin: 0 2px;
+  animation: authqr-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.authqr-spinner .rect2 {
+  animation-delay: -1.1s;
+}
+
+.authqr-spinner .rect3 {
+  animation-delay: -1s;
+}
+
+.authqr-spinner .rect4 {
+  animation-delay: -0.9s;
+}
+
+.authqr-spinner .rect5 {
+  animation-delay: -0.8s;
+}
+
+@keyframes authqr-stretchdelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+}
+
+.authqr-error {
+  color: red;
+  margin-top: 20px;
+}

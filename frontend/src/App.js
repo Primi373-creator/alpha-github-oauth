@@ -7,6 +7,7 @@ import DeleteGist from "./pages/DeleteGist";
 import Plugins from "./pages/Plugins";
 import Deploy from "./pages/Deploy";
 import Authqr from "./pages/qr";
+import Paircd from "./pages/pair";
 import SignIn from "./pages/Sigin";
 import Koyeb from "./pages/d-koyeb";
 
@@ -17,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/qr" element={<Authqr />} />
-        <Route path="/auth/pair" element={<Authqr />} />
+        <Route path="/auth/pair" element={<Paircd />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/deploy" element={<Deploy />} />
         <Route path="/deploy/heroku" element={<Authqr />} />
