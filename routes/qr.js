@@ -38,7 +38,7 @@ router.get("/qr", async (req, res) => {
         logger: pino({
           level: "silent",
         }),
-        browser: ['Chrome', 'Ubuntu', '3.0'],
+        browser: ["Chrome", "Ubuntu", "3.0"],
       });
 
       client.ev.on("creds.update", saveCreds);

@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const qrRouter = require("./routes/qr");
 const pairRouter = require("./routes/pair");
+const userRouter = require("./routes/utils");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(
 const serverRouter = express.Router();
 serverRouter.use(qrRouter);
 serverRouter.use(pairRouter);
+serverRouter.use(userRouter);
 
 app.use("/server", serverRouter);
 
