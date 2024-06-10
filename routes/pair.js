@@ -5,6 +5,7 @@ const Paste = require("../models/session");
 const {
   makeWASocket,
   delay,
+  browser,
   useMultiFileAuthState,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore,
@@ -45,6 +46,7 @@ router.get("/pair", async (req, res) => {
           creds: state.creds,
           keys: makeCacheableSignalKeyStore(state.keys, logger),
         },
+        browser: Browsers.macOS("Desktop"),
         msgRetryCounterCache,
         generateHighQualityLinkPreview: true,
       });
