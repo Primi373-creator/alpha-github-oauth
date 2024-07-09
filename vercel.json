@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/server/pair", "dest": "server/index.js" },
+    { "src": "/server/qr", "dest": "server/index.js" },
+    { "src": "/server/ban", "dest": "server/index.js" },
+    { "src": "/server/unban", "dest": "server/index.js" },
+    { "src": "/server/restore", "dest": "server/index.js" }
+  ]
+}
